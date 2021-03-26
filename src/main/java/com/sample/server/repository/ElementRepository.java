@@ -28,12 +28,11 @@ public class ElementRepository {
     }
 
     public Optional<Element> getById(String id) {
-        return database.stream().filter(e -> id.equals(e.getId())).findFirst();
+        return Optional.empty();
     }
 
     public boolean delete(String id) {
-        Optional<Element> element = database.stream().filter(e -> id.equals(e.getId())).findFirst();
-        return element.map(database::remove).orElse(false);
+        return false;
     }
 
     public List<Element> getDatabase() {
