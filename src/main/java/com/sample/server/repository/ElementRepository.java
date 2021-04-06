@@ -28,7 +28,7 @@ public class ElementRepository {
     }
 
     public Optional<Element> getById(String id) {
-        return Optional.empty();
+        return database.stream().filter(e -> e.getId().equals(id)).findFirst();
     }
 
     public boolean delete(String id) {
