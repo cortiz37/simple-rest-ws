@@ -3,7 +3,6 @@ package com.sample.server.controller;
 import com.sample.server.model.Element;
 import com.sample.server.service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class ElementController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable(name = "id") String id) {
         final Optional<Element> elementById = elementService.getElementById(id);
-        if(elementById.isPresent()) {
+        if (elementById.isPresent()) {
             return ResponseEntity.ok(elementById.get());
         }
         return ResponseEntity.notFound().build();
@@ -45,9 +44,6 @@ public class ElementController {
     @PostMapping
     public ResponseEntity create(@RequestBody Element element) {
         Element created = elementService.create(element);
-        if(created != null) {
-            return ResponseEntity.created(URI.create("/elements/" + created.getId())).build();
-        }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.created(URI.create("/elements/" + created.getId())).build();
     }
 }
