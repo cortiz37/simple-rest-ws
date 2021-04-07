@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ElementService {
@@ -24,5 +25,14 @@ public class ElementService {
 
     public Optional<Element> getElementById(String id) {
         return elementRepository.getById(id);
+    }
+
+    public boolean delete(String id) {
+        return elementRepository.delete(id);
+    }
+
+    public Element create(Element element) {
+        element.setId(UUID.randomUUID().toString());
+        return elementRepository.save(element);
     }
 }

@@ -32,6 +32,15 @@ public class ElementRepository {
     }
 
     public boolean delete(String id) {
+        Element elementToDelete = null;
+        for (Element element : database) {
+            if(element.getId().equals(id)) {
+                elementToDelete = element;
+            }
+        }
+        if(elementToDelete != null) {
+            return database.remove(elementToDelete);
+        }
         return false;
     }
 
