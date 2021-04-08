@@ -34,7 +34,18 @@ public class ElementControllerV2 {
         summary = "Create an element",
         description = "" +
             "Insert new element into the database.<br><br>" +
-            "<b>Important</b>: Not implemented yet!"
+            "<b>Important</b>: Not implemented yet!",
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "JSON document representing the `element` entity (v2)",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                examples = @ExampleObject(name = "map", value = "" +
+                    "{\n" +
+                    "  \"index\": \"Sales\",\n" +
+                    "  \"total\": 60.75\n" +
+                    "}")
+            )
+        )
     )
     public ResponseEntity create(@RequestBody ElementV2 element) {
         element.setId(UUID.randomUUID().toString());

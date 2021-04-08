@@ -3,6 +3,7 @@ package com.sample.server.controller;
 import com.sample.server.model.Element;
 import com.sample.server.model.ErrorMessage;
 import com.sample.server.service.ElementService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/elements")
+@Tag(name = "Element Controller", description = "Current version of Element API")
 public class ElementController {
 
     private final ElementService elementService;
