@@ -40,4 +40,23 @@ public class ElementService {
         element.setId(UUID.randomUUID().toString());
         return elementRepository.save(element);
     }
+
+    public Optional<Element> replace(String id, Element element) {
+        element.setId(id);
+        if (delete(id)) {
+            return Optional.of(elementRepository.save(element));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Element> merge(String id, Element element) throws IOException {
+        element.setId(null);
+        final Optional<Element> elementById = getElementById(id);
+        if (elementById.isPresent()) {
+            Element original = elementById.get();
+            jsonHelper.merge(original, element);
+            return elementById;
+        }
+        return Optional.empty();
+    }
 }
