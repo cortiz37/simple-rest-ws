@@ -33,6 +33,7 @@ dependencies {
     //    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     //    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.0")
     //compileOnly("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
 }
 
