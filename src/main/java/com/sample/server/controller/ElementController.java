@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/v1/elements")
@@ -68,7 +66,7 @@ public class ElementController {
                 .orElse(ResponseEntity.notFound().build());
 
         } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "error merging...", e);
+            e.printStackTrace();
             return ResponseEntity.badRequest()
                 .body(ErrorMessage.of(
                     HttpStatus.BAD_REQUEST.value(),
