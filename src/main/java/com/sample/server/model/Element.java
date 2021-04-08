@@ -1,7 +1,10 @@
 package com.sample.server.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Element {
 
     private String id;
@@ -10,14 +13,14 @@ public class Element {
 
     private Date date;
 
-    private boolean success;
+    private Boolean success;
 
-    private int amount;
+    private Integer amount;
 
     public Element() {
     }
 
-    public Element(String id, String name, String description, Date date, boolean success, int amount) {
+    public Element(String id, String name, String description, Date date, Boolean success, Integer amount) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,19 +61,19 @@ public class Element {
         this.date = date;
     }
 
-    public boolean isSuccess() {
+    public Boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 }

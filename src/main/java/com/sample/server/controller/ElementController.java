@@ -1,17 +1,22 @@
 package com.sample.server.controller;
 
 import com.sample.server.model.Element;
+import com.sample.server.model.ErrorMessage;
 import com.sample.server.service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/elements")
+@RequestMapping("/v1/elements")
 public class ElementController {
 
     private final ElementService elementService;
@@ -45,5 +50,32 @@ public class ElementController {
     public ResponseEntity create(@RequestBody Element element) {
         Element created = elementService.create(element);
         return ResponseEntity.created(URI.create("/elements/" + created.getId())).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity replaceById(@PathVariable(name = "id") String id, @RequestBody Element element) {
+        return elementService.replace(id, element)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity updateById(@PathVariable(name = "id") String id, @RequestBody Element element) {
+        try {
+
+            return elementService.merge(id, element)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "error merging...", e);
+            return ResponseEntity.badRequest()
+                .body(ErrorMessage.of(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Error updating the resource",
+                    e.getMessage(),
+                    null
+                ));
+        }
     }
 }

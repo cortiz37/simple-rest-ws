@@ -32,11 +32,11 @@ public class ElementRepository {
     }
 
     public boolean delete(String id) {
-        database.stream()
+        return database.stream()
             .filter(e -> e.getId().equals(id))
             .findFirst()
-            .ifPresent(database::remove);
-        return true;
+            .map(database::remove)
+            .orElse(false);
     }
 
     public List<Element> getDatabase() {
