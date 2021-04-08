@@ -48,31 +48,4 @@ public class ElementController {
         Element created = elementService.create(element);
         return ResponseEntity.created(URI.create("/elements/" + created.getId())).build();
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity replaceById(@PathVariable(name = "id") String id, @RequestBody Element element) {
-        return elementService.replace(id, element)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity updateById(@PathVariable(name = "id") String id, @RequestBody Element element) {
-        try {
-
-            return elementService.merge(id, element)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest()
-                .body(ErrorMessage.of(
-                    HttpStatus.BAD_REQUEST.value(),
-                    "Error updating the resource",
-                    e.getMessage(),
-                    null
-                ));
-        }
-    }
 }
