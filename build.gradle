@@ -12,7 +12,7 @@ buildscript {
 group = 'simple-rest-ws'
 
 apply plugin: 'java'
-//apply plugin: 'war'
+apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
@@ -20,6 +20,11 @@ version = '0.0.1-SNAPSHOT'
 bootJar {
     archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
 }
+
+bootWar {
+    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+}
+
 
 repositories {
     mavenCentral()
